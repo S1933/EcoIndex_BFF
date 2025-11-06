@@ -86,6 +86,58 @@ The cache is set to expire after 1 week (604800 seconds). You can change this va
 
 Endpoints `/badge`, `/redirect` and `/api/results` provide a `refresh` parameter to force the cache to be refreshed. Those endpoints also add `cache-control` header set to `public, max-age=604800` (1 week) to allow the browser to cache the response.
 
+## 🖥️ CLI Tool
+
+The project includes a command-line tool to analyze the environmental footprint of a URL.
+
+### Installation
+
+Build the CLI tool:
+
+```bash
+go build -o bin/ecoindex-analyze cmd/analyze/main.go
+```
+
+### Usage
+
+```bash
+./bin/ecoindex-analyze -url https://www.example.com
+```
+
+#### Available options
+
+| Option    | Type     | Description                                      | Default value |
+|-----------|----------|--------------------------------------------------|---------------|
+| `-url`    | `string` | **Required**. URL to analyze                     | -             |
+| `-width`  | `int`    | Browser window width                             | `1920`        |
+| `-height` | `int`    | Browser window height                            | `1080`        |
+| `-env`    | `string` | Path to .env file                                | `.env`        |
+
+#### Examples
+
+Analyze a URL with default parameters:
+```bash
+./bin/ecoindex-analyze -url https://www.keolis.com
+```
+
+Analyze a URL with custom dimensions:
+```bash
+./bin/ecoindex-analyze -url https://www.example.com -width 1366 -height 768
+```
+
+#### Results
+
+The tool displays:
+- 🏆 **EcoIndex Grade** (A to G)
+- 📊 **Score** (0 to 100)
+- 🌍 **Environmental Impact** (GHG in gCO2e, Water in cl)
+- 📦 **Technical Metrics** (Size, DOM Nodes, HTTP Requests)
+- 💡 **Personalized Recommendations** based on the grade obtained
+
+#### Rate Limiting
+
+The EcoIndex API has a limit of 10 requests per day per domain. If this limit is reached, the tool will automatically display the latest available result for that domain.
+
 ## ➤ API Reference
 
 ### Get latest results info
