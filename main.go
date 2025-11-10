@@ -32,5 +32,11 @@ func main() {
 	api.Get("/hosts/:hostname", handler.GetHost)
 	api.Get("/ecoindex", handler.ComputeEcoindex)
 
+	// Endpoints pour les tâches batch
+	api.Post("/batch-tasks", handler.CreateBatchTask)
+	api.Get("/batch-tasks", handler.ListBatchTasks)
+	api.Get("/batch-tasks/:id", handler.GetBatchTask)
+	api.Delete("/batch-tasks/:id", handler.DeleteBatchTask)
+
 	app.Listen(":" + config.ENV.AppPort)
 }

@@ -138,6 +138,59 @@ The tool displays:
 
 The EcoIndex API has a limit of 10 requests per day per domain. If this limit is reached, the tool will automatically display the latest available result for that domain.
 
+## 🔄 Batch Tasks System
+
+The BFF includes a batch tasks system to analyze multiple pages of a website without losing processing in case of browser refresh. Tasks are stored in Redis and processed in the background.
+
+### Available Endpoints
+
+#### Create a batch task
+```http
+POST /api/batch-tasks
+Content-Type: application/json
+
+{
+  "urls": [
+    "https://www.example.com",
+    "https://www.example.com/about",
+    "https://www.example.com/contact"
+  ],
+  "width": 1920,
+  "height": 1080
+}
+```
+
+#### Get task status
+```http
+GET /api/batch-tasks/{id}
+```
+
+#### List all tasks
+```http
+GET /api/batch-tasks
+```
+
+#### Delete a task
+```http
+DELETE /api/batch-tasks/{id}
+```
+
+### Complete Documentation
+
+For more details on using the batch tasks system, see the [complete documentation](docs/BATCH_TASKS.md).
+
+### Usage Example
+
+A complete integration example with Node.js is available in [`examples/batch-analysis.js`](examples/batch-analysis.js).
+
+```bash
+# Run the example
+node examples/batch-analysis.js
+
+# List active tasks
+node examples/batch-analysis.js list
+```
+
 ## ➤ API Reference
 
 ### Get latest results info
